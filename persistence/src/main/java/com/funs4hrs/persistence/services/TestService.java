@@ -15,27 +15,27 @@ public class TestService implements ICRUD<Test,Long> {
     private ITestRepository iUserRepository;
 
     @Override
-    public Long create(Test entity) {
+    public Test create(Test entity) {
         return null;
     }
 
     @Override
-    public Test read(long id) {
+    public Test read(Long id) {
         return null;
     }
 
     @Override
-    public Iterable readAll() {
+    public Iterable<Test> readAll() {
         return null;
     }
 
     @Override
-    public Long update(Test entity) {
+    public Test update(Test entity) {
         return null;
     }
 
     @Override
-    public void delete(long id) {
-
+    public boolean delete(Long id) {
+        return false;
     }
 }

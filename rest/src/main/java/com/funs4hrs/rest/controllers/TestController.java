@@ -1,10 +1,12 @@
 package com.funs4hrs.rest.controllers;
 
 import com.funs4hrs.domain.interfaces.logic.handlers.ITestHandler;
-import com.funs4hrs.domain.interfaces.rest.ITestController;
+import com.funs4hrs.domain.interfaces.rest.controllers.ITestController;
 import com.funs4hrs.domain.models.Test;
+import com.funs4hrs.domain.models.User;
 import com.funs4hrs.logic.handlers.TestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,27 +25,32 @@ public class TestController implements ITestController {
     }
 
     @Override
-    public Long create(Test entity) {
+    public ResponseEntity create(Test entity) {
         return null;
     }
 
     @Override
-    public Test read(long id) {
+    public ResponseEntity read(Long id) {
         return null;
     }
 
     @Override
-    public Iterable readAll() {
+    public ResponseEntity readAll() {
         return null;
     }
 
     @Override
-    public Long update(Test entity) {
+    public ResponseEntity update(Test entity) {
         return null;
     }
 
     @Override
-    public void delete(long id) {
+    public ResponseEntity delete(Long id) {
+        return null;
+    }
 
+    @Override
+    public User addDefaultLinks(User entity) {
+        return null;
     }
 }

@@ -25,6 +25,18 @@ public class User extends ResourceSupport {
     public User() {
     }
 
+    public User(long id, String firstName, String lastName, String email, String password, double hourlyWage, String adress, String city, boolean isManager) {
+        Id = id;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Password = password;
+        HourlyWage = hourlyWage;
+        Adress = adress;
+        City = city;
+        IsManager = isManager;
+    }
+
     public User(String firstName, String lastName, String email, String password, double hourlyWage, String adress, String city, boolean isManager) {
         FirstName = firstName;
         LastName = lastName;

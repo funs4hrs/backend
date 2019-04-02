@@ -22,33 +22,34 @@ public class UserComponent implements IUserComponent {
         this.service = service;
     }
 
+
     @Override
-    public ResponseEntity Login(String email, String password) {
+    public User login(String email, String password) {
+        return service.login(email,password);
+    }
+
+    @Override
+    public User create(User entity) {
         return null;
     }
 
     @Override
-    public Long create(User entity) {
+    public User read(Long id) {
         return null;
     }
 
     @Override
-    public User read(long id) {
+    public Iterable<User> readAll() {
         return null;
     }
 
     @Override
-    public Iterable readAll() {
+    public User update(User entity) {
         return null;
     }
 
     @Override
-    public Long update(User entity) {
-        return null;
-    }
-
-    @Override
-    public void delete(long id) {
-
+    public boolean delete(Long id) {
+        return false;
     }
 }

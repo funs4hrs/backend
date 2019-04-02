@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class TestHandler implements ITestHandler {
 
@@ -24,27 +26,27 @@ public class TestHandler implements ITestHandler {
     }
 
     @Override
-    public Long create(Test entity) {
+    public Test create(Test entity) {
         return null;
     }
 
     @Override
-    public Test read(long id) {
+    public Test read(Long id) {
         return null;
     }
 
     @Override
-    public Iterable readAll() {
+    public List<Test> readAll() {
         return null;
     }
 
     @Override
-    public Long update(Test entity) {
+    public Test update(Test entity) {
         return null;
     }
 
     @Override
-    public void delete(long id) {
-
+    public boolean delete(Long id) {
+        return false;
     }
 }

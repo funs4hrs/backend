@@ -13,30 +13,38 @@ public class UserService implements ICRUD<User,Long> {
 
     @Qualifier("UserRepository")
     @Autowired
-    private IUserRepository iUserRepository;
+    private IUserRepository repository;
+
+    public User login(String email, String password){
+        return repository.findByEmailAndPassword(email,password);
+    }
 
     @Override
-    public Long create(User entity) {
+    public User create(User entity) {
         return null;
     }
 
     @Override
-    public User read(long id) {
-        return null;
+    public User read(Long id) {
+        if (repository.findById(id).isPresent())
+            return repository.findById(id).get();
+        else
+            return null;
     }
 
     @Override
-    public Iterable readAll() {
-        return null;
+    public Iterable<User> readAll() {
+        return repository.findAll();
     }
 
     @Override
-    public Long update(User entity) {
-        return null;
+    public User update(User entity) {
+        return repository.save(new User());
     }
 
     @Override
-    public void delete(long id) {
-
+    public boolean delete(Long id) {
+        repository.deleteById(id);
+        return true;
     }
 }

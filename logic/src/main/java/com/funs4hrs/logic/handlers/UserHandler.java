@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class UserHandler implements IUserHandler {
 
@@ -29,32 +32,36 @@ public class UserHandler implements IUserHandler {
     }
 
     @Override
-    public ResponseEntity Login(String email, String password) {
-        return null;
+    public User login(String email, String password) {
+        return component.login(email,password);
     }
 
     @Override
-    public Long create(User entity) {
-        return null;
+    public User create(User entity) {
+        return component.create(entity);
     }
 
     @Override
-    public User read(long id) {
-        return null;
+    public User read(Long id) {
+        return service.read(id);
     }
 
     @Override
-    public Iterable readAll() {
-        return null;
+    public List<User> readAll() {
+        Iterable<User> users = service.readAll();
+        List<User> userList = new ArrayList<>();
+
+        users.iterator().forEachRemaining(userList::add);
+        return userList;
     }
 
     @Override
-    public Long update(User entity) {
-        return null;
+    public User update(User entity) {
+        return service.update(entity);
     }
 
     @Override
-    public void delete(long id) {
-
+    public boolean delete(Long id) {
+        return service.delete(id);
     }
 }

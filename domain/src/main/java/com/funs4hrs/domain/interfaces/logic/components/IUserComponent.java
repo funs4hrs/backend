@@ -5,6 +5,6 @@ import com.funs4hrs.domain.models.User;
 import org.springframework.http.ResponseEntity;
 
 public interface IUserComponent extends ICRUD<User,Long> {
-    ResponseEntity Login(String email, String password);
+    User login(String email, String password);
 
 }
