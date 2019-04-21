@@ -1,9 +1,11 @@
 package com.funs4hrs.rest.controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.funs4hrs.domain.interfaces.logic.handlers.IUserHandler;
 import com.funs4hrs.domain.interfaces.rest.controllers.IUserController;
 import com.funs4hrs.domain.models.User;
 import com.funs4hrs.logic.handlers.UserHandler;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class UserController implements IUserController {
 
     private IUserHandler handler;
 
+    Gson gson = new Gson();
+
     public UserController() {
     }
 
@@ -32,17 +36,19 @@ public class UserController implements IUserController {
     }
 
     @Override
-    public ResponseEntity login(String email, String password) {
+    public ResponseEntity login(@RequestBody ObjectNode node) {
+        String email = node.get("email").asText();
+        String password = node.get("password").asText();
         User user = handler.login(email,password);
         user = addDefaultLinks(user);
-        return new ResponseEntity<User>(user, HttpStatus.valueOf(200));
+        return new ResponseEntity<>(user, HttpStatus.valueOf(200));
     }
 
     @Override
-    public ResponseEntity create(@RequestBody(required = true)User entity) {
-        User result = handler.create(entity);
+    public ResponseEntity create(@RequestBody String JsonEntity) {
+        User result = handler.create(gson.fromJson(JsonEntity,User.class));
         result = addDefaultLinks(result);
-        return new ResponseEntity<User>(result,HttpStatus.valueOf(200));
+        return new ResponseEntity<>(result,HttpStatus.valueOf(200));
     }
 
     @Override
@@ -63,35 +69,35 @@ public class UserController implements IUserController {
         for (User user : users) {
             tmpUsers.add(addDefaultLinks(user));
         }
-        return new ResponseEntity<List<User>>(tmpUsers,HttpStatus.valueOf(200));
+        return new ResponseEntity<>(tmpUsers,HttpStatus.valueOf(200));
     }
 
-    @Override
-    public ResponseEntity update(@RequestBody(required = true)User entity) {
-        User user = handler.update(entity);
+    public ResponseEntity update(@RequestBody String JsonEntity) {
+        User user = handler.update(gson.fromJson(JsonEntity,User.class));
 
         user = addDefaultLinks(user);
 
-        return new ResponseEntity<User>(user, HttpStatus.valueOf(200));
+        return new ResponseEntity<>(user, HttpStatus.valueOf(200));
     }
 
     @Override
     public ResponseEntity delete(@RequestParam(name = "id", required = true)Long id) {
         if (handler.delete(id)){
-            return new ResponseEntity<Boolean>(true,HttpStatus.valueOf(200));
+            return new ResponseEntity<>(true,HttpStatus.valueOf(200));
         } else {
-            return new ResponseEntity<Boolean>(false, HttpStatus.valueOf(404));
+            return new ResponseEntity<>(false, HttpStatus.valueOf(404));
         }
     }
 
     @Override
     public User addDefaultLinks(User entity){
 
-        entity.add(linkTo(methodOn(UserController.class).create(new User())).withSelfRel());
+        //entity.add(linkTo(methodOn(UserController.class).create("")).withSelfRel());
         entity.add(linkTo(methodOn(UserController.class).read(1L)).withSelfRel());
         entity.add(linkTo(methodOn(UserController.class).readAll()).withSelfRel());
+        //entity.add(linkTo(methodOn(UserController.class).update("")).withSelfRel());
         entity.add(linkTo(methodOn(UserController.class).delete(1L)).withSelfRel());
-        entity.add(linkTo(methodOn(UserController.class).login("Email", "Password")).withSelfRel());
+        entity.add(linkTo(methodOn(UserController.class).login(null)).withSelfRel());
 
         return entity;
     }

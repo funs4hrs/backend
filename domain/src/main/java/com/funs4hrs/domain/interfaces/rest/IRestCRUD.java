@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface IRestCRUD<T, R> {
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
-    ResponseEntity create(T entity);
+    ResponseEntity create(String JsonEntity);
 
     @RequestMapping(value = "/read",method = RequestMethod.GET)
     ResponseEntity read(R id);
@@ -17,7 +17,7 @@ public interface IRestCRUD<T, R> {
     ResponseEntity readAll();
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    ResponseEntity update(T entity);
+    ResponseEntity update(String JsonEntity);
 
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     ResponseEntity delete(R id);
