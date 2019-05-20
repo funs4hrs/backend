@@ -7,16 +7,22 @@ import org.springframework.hateoas.ResourceSupport;
 import javax.persistence.*;
 
 @Entity
-@Getter
 public class Project extends ResourceSupport {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
-    @OneToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long Id;
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "owner", referencedColumnName = "id")
     private Company Owner;
+    @Getter
     private String Description;
+    @Getter
     private String Name;
+    @Getter
     private double Payout;
+    @Getter
     private boolean Internal;
 
     public Project() {

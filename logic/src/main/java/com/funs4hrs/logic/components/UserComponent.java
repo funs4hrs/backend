@@ -26,29 +26,4 @@ public class UserComponent implements IUserComponent {
     public User login(String email, String password) {
         return service.login(email,password);
     }
-
-    @Override
-    public User create(User entity) {
-        return null;
-    }
-
-    @Override
-    public User read(Long id) {
-        return null;
-    }
-
-    @Override
-    public Iterable<User> readAll() {
-        return null;
-    }
-
-    @Override
-    public User update(User entity) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
 }

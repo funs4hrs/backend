@@ -53,7 +53,7 @@ public class UserController implements IUserController {
     public ResponseEntity read(Long id) {
         User result = handler.read(id);
         if (result != null) {
-            return new ResponseEntity<User>(result, HttpStatus.valueOf(200));
+            return new ResponseEntity<>(result, HttpStatus.valueOf(200));
         } else {
             return new ResponseEntity(null, HttpStatus.valueOf(400));
         }
@@ -64,14 +64,13 @@ public class UserController implements IUserController {
         List<User> users = handler.readAll();
         List<User> tmpUsers = new ArrayList<>();
         for (User user : users) {
+            tmpUsers.add(user);
         }
         return new ResponseEntity<>(tmpUsers,HttpStatus.valueOf(200));
     }
 
     public ResponseEntity update(@RequestBody String JsonEntity) {
         User user = handler.update(gson.fromJson(JsonEntity,User.class));
-
-
         return new ResponseEntity<>(user, HttpStatus.valueOf(200));
     }
 

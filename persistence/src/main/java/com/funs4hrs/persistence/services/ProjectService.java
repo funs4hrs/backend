@@ -1,31 +1,28 @@
 package com.funs4hrs.persistence.services;
 
 import com.funs4hrs.domain.interfaces.ICRUD;
-import com.funs4hrs.domain.models.User;
-import com.funs4hrs.persistence.repositories.IUserRepository;
+import com.funs4hrs.domain.models.Project;
+import com.funs4hrs.persistence.repositories.IProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements ICRUD<User,Long> {
+public class ProjectService implements ICRUD<Project,Long> {
 
 
-    @Qualifier("UserRepository")
+    @Qualifier("ProjectRepository")
     @Autowired
-    private IUserRepository repository;
+    private IProjectRepository repository;
 
-    public User login(String email, String password){
-        return repository.findByEmailAndPassword(email,password);
+
+    @Override
+    public Project create(Project entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public User create(User entity) {
-        return null;
-    }
-
-    @Override
-    public User read(Long id) {
+    public Project read(Long id) {
         if (repository.findById(id).isPresent())
             return repository.findById(id).get();
         else
@@ -33,12 +30,12 @@ public class UserService implements ICRUD<User,Long> {
     }
 
     @Override
-    public Iterable<User> readAll() {
+    public Iterable<Project> readAll() {
         return repository.findAll();
     }
 
     @Override
-    public User update(User entity) {
+    public Project update(Project entity) {
         return repository.save(entity);
     }
 
