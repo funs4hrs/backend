@@ -11,27 +11,24 @@ public class Company extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private long Id;
+    private Long id;
     @Getter
-    private String Name;
+    private String name;
     @Getter
-    private String Adress;
+    private String adress;
     @Getter
-    private String City;
+    private String city;
     @Getter
-    private String TaxNumber;
+    private String taxNumber;
 
     public Company() {
     }
 
     public Company(String name, String adress, String city, String taxNumber) {
-        Name = name;
-        Adress = adress;
-        City = city;
-        TaxNumber = taxNumber;
+        this.name = name;
+        this.adress = adress;
+        this.city = city;
+        taxNumber = taxNumber;
     }
 
-    public Link getId() {
-        return new Link(Long.toString(Id));
-    }
 }

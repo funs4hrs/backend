@@ -11,25 +11,23 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-@Getter
 public class Attendance extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
-    private Date StartTime;
-    private Date EndTime;
+    private Long id;
+    @Getter
+    private Date start_time;
+    @Getter
+    private Date end_time;
 
     public Attendance() {
     }
 
     public Attendance(Date startTime, Date endTime) {
-        StartTime = startTime;
-        EndTime = endTime;
+        start_time = startTime;
+        end_time = endTime;
     }
 
 
-    public Link getId() {
-        return new Link(Long.toString(Id));
-    }
 }
 
