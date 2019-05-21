@@ -1,7 +1,9 @@
 package com.funs4hrs.rest.controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.funs4hrs.domain.interfaces.logic.handlers.IUserHandler;
 import com.funs4hrs.domain.interfaces.rest.IRestCRUD;
+import com.funs4hrs.domain.interfaces.rest.controllers.IProjectController;
 import com.funs4hrs.domain.models.Project;
 import com.funs4hrs.domain.models.User;
 import com.funs4hrs.logic.handlers.ProjectHandler;
@@ -19,7 +21,7 @@ import java.util.List;
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/projects")
-public class ProjectController implements IRestCRUD<Project, Long> {
+public class ProjectController implements IProjectController {
 
     private ProjectHandler handler;
 
@@ -49,6 +51,8 @@ public class ProjectController implements IRestCRUD<Project, Long> {
         }
     }
 
+
+
     @Override
     public ResponseEntity readAll() {
         List<Project> projects = handler.readAll();
@@ -72,5 +76,11 @@ public class ProjectController implements IRestCRUD<Project, Long> {
         } else {
             return new ResponseEntity<>(false, HttpStatus.valueOf(404));
         }
+    }
+
+    @Override
+    public ResponseEntity readByUser(String jsonUser) {
+        User user = gson.fromJson(jsonUser, User.class);
+        return new ResponseEntity<>(handler.readByUser(user), HttpStatus.valueOf(200));
     }
 }

@@ -1,17 +1,20 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Project extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long Id;
+    @JsonSerialize
+    private Long id;
     @Getter
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
@@ -24,6 +27,10 @@ public class Project extends ResourceSupport {
     private double Payout;
     @Getter
     private boolean Internal;
+    @Getter
+    @OneToMany
+    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
 
     public Project() {
     }
@@ -34,9 +41,5 @@ public class Project extends ResourceSupport {
         Name = name;
         Payout = payout;
         Internal = internal;
-    }
-
-    public Link getId() {
-        return new Link(Long.toString(Id));
     }
 }

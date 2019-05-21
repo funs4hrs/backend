@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/users")
@@ -39,7 +36,6 @@ public class UserController implements IUserController {
         String email = node.get("email").asText();
         String password = node.get("password").asText();
         User user = handler.login(email,password);
-        System.out.println(user);
         return new ResponseEntity<>(user, HttpStatus.valueOf(200));
     }
 

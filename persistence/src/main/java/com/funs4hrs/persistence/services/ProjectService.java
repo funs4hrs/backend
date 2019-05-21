@@ -2,10 +2,13 @@ package com.funs4hrs.persistence.services;
 
 import com.funs4hrs.domain.interfaces.ICRUD;
 import com.funs4hrs.domain.models.Project;
+import com.funs4hrs.domain.models.User;
 import com.funs4hrs.persistence.repositories.IProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProjectService implements ICRUD<Project,Long> {
@@ -44,4 +47,6 @@ public class ProjectService implements ICRUD<Project,Long> {
         repository.deleteById(id);
         return true;
     }
+
+    public List<Project> readByUser(User user){ return null;}
 }

@@ -61,4 +61,8 @@ public class ProjectHandler implements IHandlerCRUD<Project,Long> {
     public boolean delete(Long id) {
         return service.delete(id);
     }
+
+    public List<Project> readByUser(User user){
+        return service.readByUser(user);
+    }
 }

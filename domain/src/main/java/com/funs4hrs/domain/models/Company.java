@@ -1,5 +1,6 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
@@ -11,6 +12,7 @@ public class Company extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
+    @JsonSerialize
     private Long id;
     @Getter
     private String name;
