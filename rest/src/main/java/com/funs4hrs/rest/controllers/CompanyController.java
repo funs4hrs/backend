@@ -33,7 +33,6 @@ public class CompanyController implements IRestCRUD<Company, Long> {
         this.handler = handler;
     }
 
-    @Override
     public ResponseEntity create(String JsonEntity) {
         Company json = gson.fromJson(JsonEntity,Company.class);
         Company result = handler.create(json);

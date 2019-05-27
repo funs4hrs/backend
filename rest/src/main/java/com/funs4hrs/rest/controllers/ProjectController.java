@@ -11,9 +11,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +33,12 @@ public class ProjectController implements IProjectController {
         this.handler = handler;
     }
 
-    @Override
-    public ResponseEntity create(String JsonEntity) {
-        Project result = handler.create(gson.fromJson(JsonEntity,Project.class));
+    @RequestMapping(value = "/",method = RequestMethod.POST)
+    public ResponseEntity create(@RequestBody Project JsonEntity) {
+        System.out.println("HALLO");
+        System.out.println(JsonEntity);
+        Project result = handler.create(JsonEntity);
+//        Project result = handler.create(gson.fromJson(JsonEntity, Project.class));
         return new ResponseEntity<>(result,HttpStatus.valueOf(200));
     }
 
