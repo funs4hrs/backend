@@ -2,13 +2,13 @@ package com.funs4hrs.domain.interfaces;
 
 public interface ICRUD<T, R> {
 
-    R create(T entity);
+    T create(T entity);
 
-    T read(long id);
+    T read(R id);
 
-    Iterable readAll();
+    Iterable<T> readAll();
 
-    R update(T entity);
+    T update(T entity);
 
-    void delete(long id);
+    boolean delete(R id);
 }
