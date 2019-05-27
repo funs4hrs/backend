@@ -37,7 +37,7 @@ public class User extends ResourceSupport implements Serializable {
     private Boolean IsManager;
     @Getter
     @OneToMany
-    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Project> projects;
 
     public User() {

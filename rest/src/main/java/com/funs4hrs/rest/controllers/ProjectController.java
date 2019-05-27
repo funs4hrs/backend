@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","*"})
 @RestController
 @RequestMapping("/projects")
 public class ProjectController implements IProjectController {

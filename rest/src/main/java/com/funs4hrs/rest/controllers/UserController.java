@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/users")
 public class UserController implements IUserController {
@@ -36,7 +36,7 @@ public class UserController implements IUserController {
         String email = node.get("email").asText();
         String password = node.get("password").asText();
         User user = handler.login(email,password);
-        return new ResponseEntity<>(user, HttpStatus.valueOf(200));
+        return new ResponseEntity<User>(user, HttpStatus.valueOf(200));
     }
 
     @Override

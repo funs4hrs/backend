@@ -29,7 +29,7 @@ public class Project extends ResourceSupport {
     private boolean Internal;
     @Getter
     @OneToMany
-    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
     private List<User> users;
 
     public Project() {
