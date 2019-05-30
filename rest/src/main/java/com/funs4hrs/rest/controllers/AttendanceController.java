@@ -1,6 +1,7 @@
 package com.funs4hrs.rest.controllers;
 
 import com.funs4hrs.domain.interfaces.rest.IRestCRUD;
+import com.funs4hrs.domain.interfaces.rest.controllers.IAttendanceController;
 import com.funs4hrs.domain.models.Attendance;
 import com.funs4hrs.logic.handlers.AttendanceHandler;
 import com.funs4hrs.logic.handlers.CompanyHandler;
@@ -18,7 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:4200","*"})
 @RestController
 @RequestMapping("/attendances")
-public class AttendanceController implements IRestCRUD<Attendance,Long> {
+public class AttendanceController implements IAttendanceController {
 
     private AttendanceHandler handler;
 
@@ -72,5 +73,11 @@ public class AttendanceController implements IRestCRUD<Attendance,Long> {
         } else {
             return new ResponseEntity<>(false, HttpStatus.valueOf(404));
         }
+    }
+
+    @Override
+    public ResponseEntity readAllOpenByUserAndProject(Long user, Long project) {
+        Attendance att = handler.readAllOpenByUserAndProject(user,project);
+        return new ResponseEntity<>(att,HttpStatus.valueOf(200));
     }
 }

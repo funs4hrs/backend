@@ -16,7 +16,7 @@ public class Project extends ResourceSupport {
     @JsonSerialize
     private Long id;
     @Getter
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
     private Company owner;
     @Getter

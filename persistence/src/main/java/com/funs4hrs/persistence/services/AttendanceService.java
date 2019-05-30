@@ -41,4 +41,9 @@ public class AttendanceService implements ICRUD<Attendance, Long> {
         repository.deleteById(id);
         return true;
     }
+
+
+    public Attendance readAllOpenByUserAndProject(Long user, Long project) {
+        return repository.readAllOpenByUserAndProject(user,project);
+    }
 }

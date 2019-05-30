@@ -1,6 +1,7 @@
 package com.funs4hrs.logic.handlers;
 
 import com.funs4hrs.domain.interfaces.logic.IHandlerCRUD;
+import com.funs4hrs.domain.interfaces.logic.handlers.IAttendanceHandler;
 import com.funs4hrs.domain.models.Attendance;
 import com.funs4hrs.domain.models.Company;
 import com.funs4hrs.logic.components.AttendanceComponent;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AttendanceHandler implements IHandlerCRUD<Attendance,Long> {
+public class AttendanceHandler implements IAttendanceHandler {
 
     @Setter
     private AttendanceComponent component;
@@ -59,5 +60,10 @@ public class AttendanceHandler implements IHandlerCRUD<Attendance,Long> {
     @Override
     public boolean delete(Long id) {
         return service.delete(id);
+    }
+
+    @Override
+    public Attendance readAllOpenByUserAndProject(Long user, Long project) {
+        return service.readAllOpenByUserAndProject(user,project);
     }
 }
