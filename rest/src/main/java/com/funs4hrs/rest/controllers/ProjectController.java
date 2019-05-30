@@ -33,12 +33,12 @@ public class ProjectController implements IProjectController {
         this.handler = handler;
     }
 
+    @Override
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody Project JsonEntity) {
+    public ResponseEntity create(@RequestBody String JsonEntity) {
         System.out.println("HALLO");
-        System.out.println(JsonEntity);
-        Project result = handler.create(JsonEntity);
-//        Project result = handler.create(gson.fromJson(JsonEntity, Project.class));
+        Project proj = gson.fromJson(JsonEntity, Project.class);
+        Project result = handler.create(proj);
         return new ResponseEntity<>(result,HttpStatus.valueOf(200));
     }
 

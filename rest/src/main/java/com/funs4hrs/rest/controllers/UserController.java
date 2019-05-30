@@ -39,6 +39,7 @@ public class UserController implements IUserController {
         return new ResponseEntity<User>(user, HttpStatus.valueOf(200));
     }
 
+    @Override
     public ResponseEntity create(@RequestBody String JsonEntity) {
         User result = handler.create(gson.fromJson(JsonEntity,User.class));
         return new ResponseEntity<>(result,HttpStatus.valueOf(200));

@@ -1,10 +1,9 @@
 package com.funs4hrs.rest.controllers;
 
 import com.funs4hrs.domain.interfaces.rest.IRestCRUD;
-import com.funs4hrs.domain.models.Company;
-import com.funs4hrs.domain.models.Project;
+import com.funs4hrs.domain.models.Attendance;
+import com.funs4hrs.logic.handlers.AttendanceHandler;
 import com.funs4hrs.logic.handlers.CompanyHandler;
-import com.funs4hrs.logic.handlers.ProjectHandler;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,31 +17,31 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200","*"})
 @RestController
-@RequestMapping("/companies")
-public class CompanyController implements IRestCRUD<Company, Long> {
+@RequestMapping("/attendances")
+public class AttendanceController implements IRestCRUD<Attendance,Long> {
 
-    private CompanyHandler handler;
+    private AttendanceHandler handler;
 
     Gson gson = new Gson();
 
-    public CompanyController() {
+    public AttendanceController() {
     }
 
     @Autowired
-    public CompanyController(CompanyHandler handler) {
+    public AttendanceController(AttendanceHandler handler) {
         this.handler = handler;
     }
 
     @Override
     public ResponseEntity create(String JsonEntity) {
-        Company json = gson.fromJson(JsonEntity,Company.class);
-        Company result = handler.create(json);
+        Attendance json = gson.fromJson(JsonEntity,Attendance.class);
+        Attendance result = handler.create(json);
         return new ResponseEntity<>(result, HttpStatus.valueOf(200));
     }
 
     @Override
     public ResponseEntity read(Long id) {
-        Company result = handler.read(id);
+        Attendance result = handler.read(id);
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.valueOf(200));
         } else {
@@ -52,18 +51,18 @@ public class CompanyController implements IRestCRUD<Company, Long> {
 
     @Override
     public ResponseEntity readAll() {
-        List<Company> companies = handler.readAll();
-        List<Company> tmpCompanies = new ArrayList<>();
-        for (Company company : companies) {
-            tmpCompanies.add(company);
+        List<Attendance> attendances = handler.readAll();
+        List<Attendance> tmpAttendances = new ArrayList<>();
+        for (Attendance attendance : attendances) {
+            tmpAttendances.add(attendance);
         }
-        return new ResponseEntity<>(tmpCompanies,HttpStatus.valueOf(200));
+        return new ResponseEntity<>(tmpAttendances,HttpStatus.valueOf(200));
     }
 
     @Override
     public ResponseEntity update(String JsonEntity) {
-        Company project = handler.update(gson.fromJson(JsonEntity,Company.class));
-        return new ResponseEntity<>(project, HttpStatus.valueOf(200));
+        Attendance attendance = handler.update(gson.fromJson(JsonEntity,Attendance.class));
+        return new ResponseEntity<>(attendance, HttpStatus.valueOf(200));
     }
 
     @Override

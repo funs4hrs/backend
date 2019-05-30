@@ -12,21 +12,21 @@ import java.util.List;
 public class Project extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
     @JsonSerialize
     private Long id;
     @Getter
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
-    private Company Owner;
+    private Company owner;
     @Getter
-    private String Description;
+    private String description;
     @Getter
-    private String Name;
+    private String name;
     @Getter
-    private double Payout;
+    private double payout;
     @Getter
-    private boolean Internal;
+    private boolean internal;
     @Getter
     @OneToMany
     @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
@@ -36,10 +36,10 @@ public class Project extends ResourceSupport {
     }
 
     public Project(Company owner, String description, String name, double payout, boolean internal) {
-        Owner = owner;
-        Description = description;
-        Name = name;
-        Payout = payout;
-        Internal = internal;
+        this.owner = owner;
+        this.description = description;
+        this.name = name;
+        this.payout = payout;
+        this.internal = internal;
     }
 }

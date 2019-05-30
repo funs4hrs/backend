@@ -20,21 +20,21 @@ public class User extends ResourceSupport implements Serializable {
     @JsonSerialize
     private Long id;
     @Getter
-    private String FirstName;
+    private String firstName;
     @Getter
-    private String LastName;
+    private String lastName;
     @Getter
-    private String Email;
+    private String email;
     @Getter
-    private String Password;
+    private String password;
     @Getter
-    private Double HourlyWage;
+    private Double hourlyWage;
     @Getter
-    private String Adress;
+    private String adress;
     @Getter
-    private String City;
+    private String city;
     @Getter
-    private Boolean IsManager;
+    private Boolean isManager;
     @Getter
     @OneToMany
     @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -44,14 +44,13 @@ public class User extends ResourceSupport implements Serializable {
     }
 
     public User(String firstName, String lastName, String email, String password, Double hourlyWage, String adress, String city, Boolean isManager) {
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        Password = password;
-        HourlyWage = hourlyWage;
-        Adress = adress;
-        City = city;
-        IsManager = isManager;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.hourlyWage = hourlyWage;
+        this.adress = adress;
+        this.city = city;
+        this.isManager = isManager;
     }
-
 }
