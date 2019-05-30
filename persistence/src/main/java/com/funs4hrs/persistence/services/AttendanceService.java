@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+
 @Service
 public class AttendanceService implements ICRUD<Attendance, Long> {
 
@@ -33,7 +35,24 @@ public class AttendanceService implements ICRUD<Attendance, Long> {
 
     @Override
     public Attendance update(Attendance entity) {
-        return repository.save(entity);
+
+        try {
+        Attendance att = repository.findById(entity.getIdentifier()).get();
+
+        Field[] fields = att.getClass().getDeclaredFields();
+
+        for (Field f : fields){
+            f.setAccessible(true);
+            f.get(entity);
+            f.set(att, f.get(entity));
+        }
+
+        return repository.save(att);
+
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override

@@ -33,6 +33,10 @@ public class Attendance extends ResourceSupport {
     @Getter
     private Date end_time;
 
+    public Long getIdentifier() {
+        return id;
+    }
+
     public Attendance() {
     }
 

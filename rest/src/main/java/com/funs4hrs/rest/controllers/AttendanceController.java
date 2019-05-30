@@ -62,7 +62,8 @@ public class AttendanceController implements IAttendanceController {
 
     @Override
     public ResponseEntity update(String JsonEntity) {
-        Attendance attendance = handler.update(gson.fromJson(JsonEntity,Attendance.class));
+        Attendance att = gson.fromJson(JsonEntity,Attendance.class);
+        Attendance attendance = handler.update(att);
         return new ResponseEntity<>(attendance, HttpStatus.valueOf(200));
     }
 

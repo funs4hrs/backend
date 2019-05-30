@@ -21,7 +21,7 @@ public interface IRestCRUD<T, R> {
     ResponseEntity readAll();
 
     @RequestMapping(value = "/",method = RequestMethod.PUT)
-    ResponseEntity update(String JsonEntity);
+    ResponseEntity update(@RequestBody String JsonEntity);
 
     @RequestMapping(value = "/",method = RequestMethod.DELETE)
     ResponseEntity delete(R id);
