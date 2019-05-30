@@ -19,13 +19,13 @@ public class Attendance extends ResourceSupport {
 
     @Getter
     @OneToOne
-    @JoinColumn(name = "id_project", referencedColumnName = "id")
+    @JoinColumn(name = "project_id", referencedColumnName = "id_project")
     private Project project;
 
 
     @Getter
     @OneToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
     private User user;
 
     @Getter

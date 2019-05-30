@@ -1,9 +1,13 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.core.annotation.Order;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
@@ -16,7 +20,7 @@ import java.util.List;
 public class User extends ResourceSupport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id_user", updatable = false, nullable = false)
     @JsonSerialize
     private Long id;
     @Getter
@@ -36,8 +40,11 @@ public class User extends ResourceSupport implements Serializable {
     @Getter
     private Boolean isManager;
     @Getter
-    @OneToMany
-    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_user"), inverseJoinColumns = @JoinColumn(name = "project_id",referencedColumnName = "id_project"))
+    @JsonIgnoreProperties("users")
+    @OrderBy("id")
     private List<Project> projects;
 
     public User() {

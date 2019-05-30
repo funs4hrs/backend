@@ -1,7 +1,11 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
@@ -9,10 +13,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "project")
+@Setter
 public class Project extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_project")
     @JsonSerialize
     private Long id;
     @Getter
@@ -27,9 +33,11 @@ public class Project extends ResourceSupport {
     private double payout;
     @Getter
     private boolean internal;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Getter
-    @OneToMany
-    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @ManyToMany(mappedBy = "projects")
+    @JsonIgnoreProperties("projects")
+    @OrderBy("id")
     private List<User> users;
 
     public Project() {
