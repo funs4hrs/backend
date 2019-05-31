@@ -7,6 +7,7 @@ import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Attendance extends ResourceSupport {
@@ -15,10 +16,26 @@ public class Attendance extends ResourceSupport {
     @Column(name = "id", updatable = false, nullable = false)
     @JsonSerialize
     private Long id;
+
+    @Getter
+    @OneToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "id_project")
+    private Project project;
+
+
+    @Getter
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
+    private User user;
+
     @Getter
     private Date start_time;
     @Getter
     private Date end_time;
+
+    public Long getIdentifier() {
+        return id;
+    }
 
     public Attendance() {
     }

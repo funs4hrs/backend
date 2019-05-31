@@ -1,7 +1,11 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 
@@ -9,37 +13,41 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "project")
+@Setter
 public class Project extends ResourceSupport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id_project")
     @JsonSerialize
     private Long id;
     @Getter
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
-    private Company Owner;
+    private Company owner;
     @Getter
-    private String Description;
+    private String description;
     @Getter
-    private String Name;
+    private String name;
     @Getter
-    private double Payout;
+    private double payout;
     @Getter
-    private boolean Internal;
+    private boolean internal;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Getter
-    @OneToMany
-    @JoinTable(name = "user_to_project", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @ManyToMany(mappedBy = "projects")
+    @JsonIgnoreProperties("projects")
+    @OrderBy("id")
     private List<User> users;
 
     public Project() {
     }
 
     public Project(Company owner, String description, String name, double payout, boolean internal) {
-        Owner = owner;
-        Description = description;
-        Name = name;
-        Payout = payout;
-        Internal = internal;
+        this.owner = owner;
+        this.description = description;
+        this.name = name;
+        this.payout = payout;
+        this.internal = internal;
     }
 }

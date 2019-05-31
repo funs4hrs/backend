@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource(collectionResourceRel = "results",path = "users")
 public interface IUserRepository extends PagingAndSortingRepository<User,Long> {
 
-    @Query("SELECT u FROM User u WHERE u.Email = :email AND u.Password = :password")
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.password = :password")
     public User findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }
