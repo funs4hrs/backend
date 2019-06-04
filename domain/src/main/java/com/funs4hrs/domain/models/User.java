@@ -1,5 +1,6 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.annotations.Expose;
@@ -46,6 +47,13 @@ public class User extends ResourceSupport implements Serializable {
     @JsonIgnoreProperties("users")
     @OrderBy("id")
     private List<Project> projects;
+    @Getter
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "attendance", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @OneToMany
+    @JsonIgnoreProperties("users")
+    @OrderBy("id")
+    private List<Attendance> attendances;
 
     public User() {
     }
@@ -59,5 +67,11 @@ public class User extends ResourceSupport implements Serializable {
         this.adress = adress;
         this.city = city;
         this.isManager = isManager;
+    }
+
+
+    @JsonIgnore
+    public Long getIdentifier() {
+        return id;
     }
 }

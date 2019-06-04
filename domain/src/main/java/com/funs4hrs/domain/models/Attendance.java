@@ -1,5 +1,6 @@
 package com.funs4hrs.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import org.springframework.hateoas.Link;
@@ -18,13 +19,13 @@ public class Attendance extends ResourceSupport {
     private Long id;
 
     @Getter
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id_project")
     private Project project;
 
 
     @Getter
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id_user")
     private User user;
 
@@ -33,6 +34,7 @@ public class Attendance extends ResourceSupport {
     @Getter
     private Date end_time;
 
+    @JsonIgnore
     public Long getIdentifier() {
         return id;
     }
