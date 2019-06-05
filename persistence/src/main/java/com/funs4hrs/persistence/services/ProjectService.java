@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -39,7 +40,23 @@ public class ProjectService implements ICRUD<Project,Long> {
 
     @Override
     public Project update(Project entity) {
-        return repository.save(entity);
+        try {
+            Project project = repository.findById(entity.getIdentifier()).get();
+
+            Field[] fields = project.getClass().getDeclaredFields();
+
+            for (Field f : fields){
+                f.setAccessible(true);
+                f.get(entity);
+                f.set(project, f.get(entity));
+            }
+
+            return repository.save(project);
+
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override

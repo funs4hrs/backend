@@ -65,4 +65,8 @@ public class ProjectHandler implements IHandlerCRUD<Project,Long> {
     public List<Project> readByUser(User user){
         return service.readByUser(user);
     }
+
+    public Project join(Long projectId, User user){
+        return component.join(projectId,user);
+    }
 }

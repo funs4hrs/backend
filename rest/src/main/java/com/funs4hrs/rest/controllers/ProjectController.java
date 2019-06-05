@@ -84,4 +84,11 @@ public class ProjectController implements IProjectController {
         User user = gson.fromJson(jsonUser, User.class);
         return new ResponseEntity<>(handler.readByUser(user), HttpStatus.valueOf(200));
     }
+
+    @Override
+    public ResponseEntity join(Long id, String jsonUser) {
+        User user = gson.fromJson(jsonUser,User.class);
+        Project project = handler.join(id,user);
+        return new ResponseEntity<>(project, HttpStatus.valueOf(200));
+    }
 }
