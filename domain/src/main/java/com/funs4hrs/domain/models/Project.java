@@ -33,10 +33,16 @@ public class Project extends ResourceSupport {
     private double payout;
     @Getter
     private boolean internal;
-    @LazyCollection(LazyCollectionOption.FALSE)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @Getter
+//    @ManyToMany(mappedBy = "projects")
+//    @JsonIgnoreProperties("projects")
+//    @OrderBy("id")
     @Getter
-    @ManyToMany(mappedBy = "projects")
-    @JsonIgnoreProperties("projects")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(name = "user_to_project", inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_user"), joinColumns = @JoinColumn(name = "project_id",referencedColumnName = "id_project"))
+    @JsonIgnoreProperties("users")
     @OrderBy("id")
     private List<User> users;
 
@@ -49,5 +55,9 @@ public class Project extends ResourceSupport {
         this.name = name;
         this.payout = payout;
         this.internal = internal;
+    }
+
+    public Long getIdentifier() {
+        return id;
     }
 }
